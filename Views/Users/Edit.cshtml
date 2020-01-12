@@ -1,0 +1,84 @@
+﻿@model MVC_proj.ViewModels.Users.EditVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        <div style="padding-top:1em">
+            <h1 style="display:inline; color:#4d4e4f; margin-top:1em; padding: 0.3em;background-color:rgba(146, 108, 108, 0.55)">Pet Adoption Portal</h1>
+            <div style="float: right; margin-right:2em; margin-top:1em;">
+                <a href="@Url.Action("View_Profile", "Users" )" style="text-decoration:none;  padding:0.3em; font-size:1.3em; color: #4d4e4f;">
+                    My Profile
+                </a>
+                <a href="@Url.Action("Logout", "Home" )" style="text-decoration:none; padding:0.3em;font-size:1.3em; color: #4d4e4f;">
+                    Logout
+                </a>
+            </div>
+        </div>
+        <nav class="menu" style="height:1.3em ;background-color: #4d4e4f; font-size:2.4vw">
+            <ul style="list-style:none; height:70px">
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:2em" href="/Users/Index">Home</a>
+                    </span>
+                </li>
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:7em" href="/Pet/Index">Pets</a>
+                    </span>
+                </li>
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:7em" href="@Url.Action("Index", "Vaccine")">Vaccines</a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+        <table>
+            <tr>
+                <td>
+                    @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Id)
+                        <fieldset>
+                            <legend>@((int)Model.Id > 0 ? "Edit" : "New") User</legend>
+                            <table>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.FirstName)</td>
+                                    <td>@Html.TextBoxFor(model => model.FirstName) @Html.ValidationMessageFor(model => model.FirstName)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.LastName)</td>
+                                    <td>@Html.TextBoxFor(model => model.LastName) @Html.ValidationMessageFor(model => model.LastName)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.Username)</td>
+                                    <td>@Html.TextBoxFor(model => model.Username) @Html.ValidationMessageFor(model => model.Username)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.Password)</td>
+                                    <td>@Html.PasswordFor(model => model.Password) @Html.ValidationMessageFor(model => model.Password)</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="submit" value="Save" />&nbsp;<a href="@Url.Action("Index", "Users")">Cancel</a></td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

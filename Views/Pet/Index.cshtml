@@ -1,0 +1,78 @@
+﻿@model MVC_proj.ViewModels.Pets.IndexVM
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <table style="width:100%;">
+            <tr>
+                <td>
+            <tr>
+                <td>
+                    <div style="padding-top:1em">
+                        <h1 style="display:inline; color:#4d4e4f; margin-top:1em; padding: 0.3em;background-color:rgba(146, 108, 108, 0.55)">Pet Adoption Portal</h1>
+                        <div style="float: right; margin-right:2em; margin-top:1em;">
+                            <a href="@Url.Action("View_Profile", "Users")" style="text-decoration:none;  padding:0.3em; font-size:1.3em; color: #4d4e4f;">
+                                My Profile
+                            </a>
+                            <a href="@Url.Action("Logout", "Home")" style="text-decoration:none; padding:0.3em;font-size:1.3em; color: #4d4e4f;">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <nav class="menu" style="height:1.3em ;background-color: #4d4e4f; font-size:2.4vw">
+            <ul style="list-style:none; height:70px">
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:2em" href="@Url.Action("Index", "Users")">Home</a>
+                    </span>
+                </li>
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:7em" href="@Url.Action("Index", "Pet")">Pets</a>
+                    </span>
+                </li>
+                <li style="float:left;">
+                    <span style="position:center;">
+                        <a style="text-decoration:solid; color:white; margin-left:7em" href="@Url.Action("Index", "Vaccine")">Vaccines</a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+        <br />
+        <a href="@Url.Action("Edit", "Pet")">Create new</a>
+        <br />
+            @foreach (var p in Model.Items)
+            {
+                Write("Name: " + p.Name);
+                <br />
+                Write("Breed: " + p.Breed);
+                <br />
+                Write("Owner: " + p.UserId);
+                <br />
+                if (p.Vaccines.Count == 0)
+                {
+                    Write("No vaccines :(");
+                }
+                else
+                {
+                    Write("Vaccines: ");
+                    foreach (var v in p.Vaccines)
+                    {
+                        Write(v.Name + ", ");
+                    }
+                }
+                <br />
+                <a href="@Url.Action("Edit", "Pet", new { Id = p.Id})">Edit</a>
+                <br /><br /><br />
+            }
+    </div>
+    </body>
+</html>
